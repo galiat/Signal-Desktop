@@ -36,11 +36,11 @@ import { getLocalAttachmentUrl } from '../util/getLocalAttachmentUrl';
 import { type Loadable, LoadingState } from '../util/loadable';
 import { missingCaseError } from '../util/missingCaseError';
 
-export async function joinViaLink(value: string): Promise<void> {
+export async function joinViaLink(value: string): Promise<void> { //is the %23 in it here?
   let inviteLinkPassword: string;
   let masterKey: string;
   try {
-    ({ inviteLinkPassword, masterKey } = parseGroupLink(value));
+    ({ inviteLinkPassword, masterKey } = parseGroupLink(value)); //this is what throws?
   } catch (error: unknown) {
     const errorString = Errors.toLogFormat(error);
     log.error(`joinViaLink: Failed to parse group link ${errorString}`);
@@ -53,7 +53,7 @@ export async function joinViaLink(value: string): Promise<void> {
     } else {
       window.reduxActions.globalModals.showErrorModal({
         description: window.i18n('icu:GroupV2--join--invalid-link'),
-        title: window.i18n('icu:GroupV2--join--invalid-link--title'),
+        title: window.i18n('icu:GroupV2--join--invalid-link--title'), // when its thrown
       });
     }
     return;

@@ -5,8 +5,8 @@ export function toWebSafeBase64(base64: string): string {
   return base64.replace(/\//g, '_').replace(/\+/g, '-').replace(/=/g, '');
 }
 
-export function fromWebSafeBase64(webSafeBase64: string): string {
-  const base64 = webSafeBase64.replace(/_/g, '/').replace(/-/g, '+');
+export function fromWebSafeBase64(webSafeBase64: string): string { //this is what needs to get fixed?
+  const base64 = webSafeBase64.replace(/_/g, '/').replace(/-/g, '+').replace('%23', '#');
 
   // Ensure that the character count is a multiple of four, filling in the extra
   //   space needed with '='

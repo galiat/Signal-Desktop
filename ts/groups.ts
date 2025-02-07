@@ -390,7 +390,7 @@ export function buildGroupLink(
   return groupInvitesRoute.toWebUrl({ inviteCode }).toString();
 }
 
-export function parseGroupLink(value: string): {
+export function parseGroupLink(value: string): { // is this the function that throws? or one one before it
   masterKey: string;
   inviteLinkPassword: string;
 } {

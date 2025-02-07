@@ -81,5 +81,14 @@ describe('both/util/webSafeBase64', () => {
 
       assert.strictEqual(expected, actual);
     });
+
+    it('removes %23', () => {
+      const base64 = '%23xxx';
+      const expected = '#xxx';
+      const actual = fromWebSafeBase64(base64);
+
+      assert.strictEqual(expected, actual);
+    });
+
   });
 });
