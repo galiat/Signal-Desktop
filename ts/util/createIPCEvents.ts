@@ -557,7 +557,10 @@ export function createIPCEvents(
         return;
       }
       try {
+        log.info("GALIAT createIPC Events", {value});
+        const valueWithTrackingRemoved = value.split("?")[0];
         await window.Signal.Groups.joinViaLink(value);
+        log.info("GALIAT createIPC Events", {valueWithTrackingRemoved});
       } catch (error) {
         log.error(
           'showGroupViaLink: Ran into an error!',

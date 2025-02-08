@@ -39,11 +39,16 @@ import { missingCaseError } from '../util/missingCaseError';
 export async function joinViaLink(value: string): Promise<void> { //is the %23 in it here?
   let inviteLinkPassword: string;
   let masterKey: string;
+  log.info("GALIAT, joinViaLink", {value});
   try {
-    ({ inviteLinkPassword, masterKey } = parseGroupLink(value)); //this is what throws?
+    const valueWithTrackingRemoved = value.split("?")[0];
+    log.info("GALIAT, joinViaLink", {valueWithTrackingRemoved});
+    ({ inviteLinkPassword, masterKey } = parseGroupLink(valueWithTrackingRemoved));
+
   } catch (error: unknown) {
     const errorString = Errors.toLogFormat(error);
     log.error(`joinViaLink: Failed to parse group link ${errorString}`);
+    log.info("GALIAT, joinViaLink", {errorString});
 
     if (error instanceof Error && error.name === LINK_VERSION_ERROR) {
       window.reduxActions.globalModals.showErrorModal({
@@ -114,6 +119,7 @@ export async function joinViaLink(value: string): Promise<void> { //is the %23 i
         title: window.i18n('icu:GroupV2--join--link-revoked--title'),
       });
     } else {
+      log.info("GALIAT joinViaLinks");
       window.reduxActions.globalModals.showErrorModal({
         description: window.i18n('icu:GroupV2--join--general-join-failure'),
         title: window.i18n('icu:GroupV2--join--general-join-failure--title'),
